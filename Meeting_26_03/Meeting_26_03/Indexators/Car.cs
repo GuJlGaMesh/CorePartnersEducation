@@ -14,5 +14,9 @@ namespace Meeting_26_03.Indexators
 		{
 			return $"{Name} - {Number}";
 		}
+		public class A
+		{
+			public static int c = 0;
+		}
 	}
 }

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Meeting_26_03.Indexators
 {
@@ -23,6 +20,25 @@ namespace Meeting_26_03.Indexators
 				}
 
 				return _cars.IndexOf(car);
+			}
+			set
+			{
+				var p = value;
+				if (Count < p)
+					_cars.Resize(p*2);
+				_cars[p] = this[car.Number];
+
+			}
+		}
+		public Car this[int position]
+		{
+			get
+			{
+				return _cars[position];
+			}
+			set
+			{
+
 			}
 		}
 		public Car this[string number]
