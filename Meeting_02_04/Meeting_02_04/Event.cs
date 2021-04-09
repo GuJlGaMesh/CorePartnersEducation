@@ -10,7 +10,7 @@ namespace Meeting_02_04
 
 	public class NewMail
 	{
-		public NewMailEventHandler newMail;
+		public event NewMailEventHandler newMail;
 		public string From { get; set; }
 		public string To { get; set; }
 		public string Text { get; set; }
