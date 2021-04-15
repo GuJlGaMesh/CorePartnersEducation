@@ -8,6 +8,7 @@ namespace Meeting_02_04
 	{
 		static void Main(string[] args)
 		{
+			
 			#region events
 			var nm = new NewMail("my mom", "me", "don't forget 'bout dinner");
 			nm.newMail += Handler;
@@ -53,17 +54,19 @@ namespace Meeting_02_04
 
 
 			#endregion
-
+			
 			#region salary
 
-			var p = new Programmer(){Salary = 10000};
+			var p = new Programmer();
+			p.SetSalary(10000);
 			var m = new Manager(){Salary = 15000};
-			var ing = new Ingineer(){Salary = 5000};
-			var l = new List<ISalary>(){p,m,ing};
-			foreach (var v in l)
-			{
-				Console.WriteLine($"profession: {v.GetType()} salary:{v.GetSalary()}");
-			}
+			var ing = new Ingineer(5000);
+			var calc = new SalaryCalculator(0.87);
+			Console.WriteLine(calc.SumWithCharge(m, ing));
+			// опять же проблемы с консолью и значка доллара я не увидел, но он тут есть, trust me
+			Console.WriteLine(calc.GetFormattedSalary(p));
+			Console.WriteLine(calc.GetFormattedSalary(new Ingineer((int)calc.SumWithoutCharge(p,m))));
+			
 
 			#endregion
 		}
