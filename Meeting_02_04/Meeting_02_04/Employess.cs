@@ -1,77 +1,61 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+using Meeting_02_04;
 
 namespace Meeting_02_04
 {
-	interface ISalary
+	public interface ISalary<out T> where T: Money
 	{
-		double GetSalary();
+		T Salary { get; }
 	}
-	class Manager : ISalary
+	public class Manager : ISalary<Euro>
 	{
-		public int Salary { get; set; }
-		public double GetSalary()
+		public Euro Salary
 		{
-			return Salary;
-		}
-	}
-	class Programmer : ISalary
-	{
-		private int _salary;
-		
-		public double GetSalary()
-		{
-			return _salary;
-		}
-		public void SetSalary(int salary)
-		{
-			_salary = salary;
-		}
-	}
-	class Ingineer : ISalary
-	{
-		public Ingineer(int salary)
-		{
-			_salary = salary;
+			get;
+			protected set;
 		}
 
-		private int _salary;
-
-		public double GetSalary()
+		public Manager(double val)
 		{
-			return _salary;
+			Salary = new Euro(val);
 		}
 	}
-
-	class SalaryCalculator
+	public class Programmer : ISalary<Dollar>
 	{
-		public double Charge { get; private set; }
+
+		public Dollar Salary { get;protected set; }
+
+		public Programmer(double val)
+		{
+			Salary = new Dollar(val);
+		}
+}
+	}
+	public class Ingineer : ISalary<Rub>
+	{ 
+		public Rub Salary { get; protected set; }
+
+		public Ingineer(double value)
+		{
+			Salary = new Rub(value);
+		}
+
+	}
+
+	public class SalaryCalculator
+	{
+		public double Charge { get; protected set; }
 		public string Format { get; set; } = "{0:C3}";
 		public SalaryCalculator(double charge)
 		{
 			Charge = charge;
 		}
-		public double SumWithCharge (ISalary s1, ISalary s2)
+
+		public void SalaryWithCharge(in ISalary<Money> s)
 		{
-			return Charge * (s1.GetSalary() + s2.GetSalary());
-		}
-		public double SumWithoutCharge (ISalary s1, ISalary s2)
-		{
-			return (s1.GetSalary() + s2.GetSalary());
+			s.Salary.Value *= Charge;
+			Console.WriteLine($"Salary of {s.GetType()} is {s.Salary}");
 		}
 
-		public string GetFormattedSalary(ISalary s)
-		{
-			if (Format != null)
-			{
-				return String.Format(Format, s.GetSalary());
-			}
-
-			return s.GetSalary().ToString();
-		}
 	}
-}
+
