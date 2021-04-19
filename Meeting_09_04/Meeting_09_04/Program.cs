@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Meeting_09_04
@@ -105,8 +106,10 @@ V     V         V          }' `\ /' `{           V          V    V
 
 			var p1 = new Person() {name = "Vitaliy", sex = Genders.male};
 			var p2 = new Person() {name = "Marina", sex = Genders.female};
+			var p3 = new Person() {name = "Already not Karina, but still no Sergey", sex = Genders.notProvided};
 			Console.WriteLine(p1);
 			Console.WriteLine(p2);
+			Console.WriteLine(p3);
 
 			#endregion
 
@@ -137,7 +140,8 @@ V     V         V          }' `\ /' `{           V          V    V
 	public enum Genders : ushort
 	{
 		male,
-		female
+		female,
+		notProvided
 	}
 
 	public struct Person
@@ -146,8 +150,15 @@ V     V         V          }' `\ /' `{           V          V    V
 		public Genders sex;
 		public override string ToString()
 		{
-			return $"Name: {name} gender: {sex}";
+			return $"Name: {name} gender: {(sex.IsMale() || sex.IsFemale() ? $" is really {sex}" : "nevermind, pal")}";
 		}
 	}
 	#endregion
+
+	public static class EnumExtension
+	{
+		public static bool IsMale(this Genders gender) => gender.Equals(Genders.male);
+		public static bool IsFemale(this Genders gender) => gender.Equals(Genders.female);
+	}
+
 }
