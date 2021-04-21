@@ -8,7 +8,11 @@ namespace Language_Basics_Part_3
 	{
 		public int Sum(int? a, int? b) => (int)(a.HasValue ? (b.HasValue ? a + b : a) : (b.HasValue ? b : 0));
 		public int Dis(int? a, int? b) => (int)(a.HasValue ? (b.HasValue ? a - b : a) : (b.HasValue ? -b : 0));
-		
+
+		public bool BiggerThan(int? a, int? b) =>
+			(a.HasValue ? (b.HasValue ? a > b : true) : (b.HasValue ? false : false));
+
+
 	}
 
 	class Program
@@ -64,11 +68,16 @@ namespace Language_Basics_Part_3
 			Console.WriteLine("10 + null: "+c.Sum(10,null));
 			Console.WriteLine("null + 10:" + c.Sum(null,10));
 			Console.WriteLine("10 + 10:" + c.Sum(10,10));
+
 			Console.WriteLine("10-5:"+c.Dis(10,5));
 			Console.WriteLine("5-null:"+c.Dis(5,null));
 			Console.WriteLine("null - 5:"+c.Dis(null,5));
 			Console.WriteLine("null - null: "+c.Dis(null,null));
-
+			
+			Console.WriteLine("null > null "+c.BiggerThan(null,null));
+			Console.WriteLine("10 > null "+c.BiggerThan(10,null));
+			Console.WriteLine("null > 10 "+c.BiggerThan(null,10));
+			Console.WriteLine("10 > 9 "+c.BiggerThan(10,9));
 			#endregion
 		}
 
