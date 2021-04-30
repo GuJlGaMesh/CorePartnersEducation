@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
+﻿
 
 namespace Find_vs_FirstOrDefault_perfomance
 {
@@ -17,7 +13,7 @@ namespace Find_vs_FirstOrDefault_perfomance
 			// Read the file and display it line by line.
 			var l = new List<string>();
 			StreamReader file =
-				new StreamReader(@"C:\Users\sirix\Desktop\CorePartnersEducation\Meeting_02_04\Find_vs_FirstOrDefault_perfomance\text.txt");
+				new StreamReader(@"C:\Users\syrykh\Desktop\text.txt");
 			while ((line = file.ReadLine()) != null)
 			{
 				l.Add(line);
