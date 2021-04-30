@@ -1,5 +1,9 @@
-﻿using System;
+﻿//#define VERIFY
+#define TEST
+
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Language_Basics_Part_3
@@ -14,12 +18,13 @@ namespace Language_Basics_Part_3
 
 
 	}
-
+	[Cond]
 	class Program
 	{
 		public delegate void Chain();
 		static void Main(string[] args)
 		{
+			Conditional();
 			#region chain
 			Chain chain = ChainMember1;
 			chain += ChainMember2;
@@ -79,8 +84,30 @@ namespace Language_Basics_Part_3
 			Console.WriteLine("null > 10 "+c.BiggerThan(null,10));
 			Console.WriteLine("10 > 9 "+c.BiggerThan(10,9));
 			#endregion
+			
+			
+			#region conditional attributes
+
+			#region class of conditional attribute
+			#endregion
+
+			
+			#endregion
 		}
 
+		#region conditional attributes method
+
+		public static void Conditional()
+		{
+			Console.WriteLine("CondAttribute is {0}applied to Program type.",
+				Attribute.IsDefined(typeof(Program),
+					typeof(CondAttribute))
+					? ""
+					: "not ");
+		}
+
+		#endregion
+		
 		#region chain methods
 		public static void ChainMember1() => Console.WriteLine("1-st call");
 		public static void ChainMember2() => Console.WriteLine("2-st call");
@@ -98,6 +125,11 @@ namespace Language_Basics_Part_3
 		public static void ChainMember7() => Console.WriteLine("How are we going to live?");
 		#endregion
 
+		#region attributes
+
+		
+
+	
 		[UInfo("do action on list and transform it")]
 		public static void TransformList(ref List<int> b, Func<int,int> func, Action<int> act)
 		{
@@ -125,6 +157,12 @@ namespace Language_Basics_Part_3
 				Desc = str;
 			}
 		}
+		#endregion
 
+		#region conditional attributes class
+		[Conditional("TEST")][Conditional("VERIFY")]
+		public sealed class CondAttribute : Attribute {
+		}
+		#endregion
 	}
 }
