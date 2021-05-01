@@ -14,60 +14,38 @@ namespace Core_Facilities
     {
         public static void Main(string[] args)
         {
-            /*
+           // /*
             #region primitive type exception catch
-
-            bool b = false;
-            while (!b)
+            var s = "text inside code";
+            bool b = true;
+            while (b)
             {
                 try
                 {
+                    Console.WriteLine("input substr: ");
+	                var s1 = Console.ReadLine();
+                    Console.WriteLine("input integer: ");
                     int a = int.Parse(Console.ReadLine());
-                    Console.WriteLine($"{a} - your input.");
+                   Console.WriteLine($"{a} - your input.");
+                    Console.WriteLine("existing substring: " +  s.Substring(s.IndexOf(s1)));
                 }
-                catch (Exception e)
+                catch (FormatException e)
                 {
-                    b = true;
-                    Console.WriteLine(e.Message);
+                    b = false;
+                    Console.WriteLine("Format exception was thrown.");
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    b = false;
+                    Console.WriteLine("Argument out of blah blah exception.");
                 }
                 finally
                 {
-                    if (b)
+                    if (!b)
                         Console.WriteLine("An exception was thrown.");
                     else Console.WriteLine("Everything is going right.");
                 }
             }
-
-            var r = new Random();
-            Console.WriteLine("Guess one char and system let you go next.");
-            bool guessed = false;
-            var s = "";
-            for (int i = 0; i < 5; i++)
-            {
-                s+=char.ConvertFromUtf32(r.Next(70, 80));
-            }
-            Console.WriteLine(s);
-            var ii = 0;
-            while (!guessed)
-            {
-                
-                var guess = Console.ReadLine();
-                try
-                {
-                    ii+=1;
-                    Console.WriteLine(s.Substring(s.IndexOf(guess)));
-                    guessed = true;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-                finally
-                {
-                    Console.WriteLine(ii + "try");
-                }
-            }
-
             #endregion
 
             #region my exception
@@ -82,7 +60,7 @@ namespace Core_Facilities
             }
 
             #endregion
-//*/
+/*
             #region GC
 
             Console.WriteLine(GC.MaxGeneration + "max generation");
