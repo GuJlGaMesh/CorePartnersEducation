@@ -10,11 +10,42 @@ namespace Core_Facilities
         {
         }
     }
+
+    public class StaticCtorExapmle
+    {
+	    static StaticCtorExapmle()
+	    {
+		    try
+		    {
+			    throw new Exception("hello world!");
+		    }
+		    catch (Exception e)
+		    {
+			    Console.WriteLine(e);
+			    Console.WriteLine(e.Message);
+		    }
+		    finally
+		    {
+                Console.WriteLine("static constructor ended correctly.");
+		    }
+	    }
+    }
     internal class Program
     {
         public static void Main(string[] args)
         {
-           // /*
+
+	        try
+	        {
+		        var t = new StaticCtorExapmle();
+	        }
+	        catch (Exception e)
+	        {
+		        Console.WriteLine(e);
+		        throw;
+	        }
+            Console.WriteLine("code still works");
+           /*
             #region primitive type exception catch
             var s = "text inside code";
             bool b = true;
