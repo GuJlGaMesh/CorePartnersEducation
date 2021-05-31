@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -41,8 +40,8 @@ namespace Threading
 			};
 			Parallel.ForEach<User>(u, options, x =>
 			 {
-				//Console.WriteLine($"Name: {x.Name}");
-				Thread.Sleep(1);
+				 //Console.WriteLine($"Name: {x.Name}");
+				 Thread.Sleep(1);
 			 });
 
 			;
@@ -69,7 +68,7 @@ namespace Threading
 		 */
 		static async Task Main(string[] args)
 		{
-			Parallel.Invoke(Block1,Block2);
+			Parallel.Invoke(Block1, Block2);
 		}
 
 		public async static void Block2()
@@ -123,16 +122,16 @@ namespace Threading
 			#region init
 
 			var users = new User().CreateUsers(1500);
-		var f = users.Take(500);
-		var s = users.Skip(500).Take(500);
-		var t = users.TakeLast(500);
-		var sw = new Stopwatch();
-		#endregion
+			var f = users.Take(500);
+			var s = users.Skip(500).Take(500);
+			var t = users.TakeLast(500);
+			var sw = new Stopwatch();
+			#endregion
 
-		#region no threads
+			#region no threads
 
 
-		sw.Start();
+			sw.Start();
 			User.DoWork(f.ToList());
 			User.DoWork(s.ToList());
 			User.DoWork(t.ToList());
@@ -147,9 +146,9 @@ namespace Threading
 			sw.Reset();
 			sw.Start();
 			var t1 = new Thread(() => User.DoWork(f.ToList()));
-		var t2 = new Thread(() => User.DoWork(s.ToList()));
-		var t3 = new Thread(() => User.DoWork(t.ToList()));
-		t1.Start();
+			var t2 = new Thread(() => User.DoWork(s.ToList()));
+			var t3 = new Thread(() => User.DoWork(t.ToList()));
+			t1.Start();
 			t2.Start();
 			t3.Start();
 			t1.Join();
@@ -159,11 +158,11 @@ namespace Threading
 			Console.WriteLine(sw.ElapsedMilliseconds + " - work with threads.");
 
 			#endregion
-			
-			/*
+
+			///*
 			#region task threadspool
 
-			var task = new Task(() =>
+			var task = Task.Run(() =>
 			{
 				ThreadPool.QueueUserWorkItem((obj) => User.DoWork(f.ToList()));
 				ThreadPool.QueueUserWorkItem((obj) => User.DoWork(s.ToList()));
@@ -202,9 +201,9 @@ namespace Threading
 			#region parallel invoke of parallel do work vs ordinary do work 
 			sw.Restart();
 			Parallel.Invoke(
-				()=>User.DoWorkParallel(f.ToList()),
-				()=>User.DoWorkParallel(s.ToList()),
-				()=>User.DoWorkParallel(t.ToList())
+				() => User.DoWorkParallel(f.ToList()),
+				() => User.DoWorkParallel(s.ToList()),
+				() => User.DoWorkParallel(t.ToList())
 			);
 			sw.Stop();
 			Console.WriteLine("parallel invoke of parallel do works: " + sw.ElapsedMilliseconds);
@@ -221,5 +220,5 @@ namespace Threading
 
 
 		}
-}
+	}
 }
